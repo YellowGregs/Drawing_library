@@ -709,7 +709,7 @@ function DrawingLib.createTextButton()
         Transparency = 0,
         Visible = true,
         ZIndex = 1,
-        MouseButton1Click = nil  -- Placeholder for event
+        MouseButton1Click = nil
     } + baseDrawingObj)
 
     local button = Instance.new("TextButton")
