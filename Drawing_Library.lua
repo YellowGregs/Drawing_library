@@ -727,7 +727,7 @@ function DrawingLib.createTextButton()
 
     local buttonEvents = {}
 
-    return setmetatable({Parent = drawingUI}, {
+    return setmetatable({Parent = drawingUI, MouseButton1Click = function() end}, {
         __newindex = function(_, index, value)
             if buttonObj[index] == nil then
                 warn("Invalid property: " .. tostring(index))
@@ -771,6 +771,13 @@ function DrawingLib.createTextButton()
                 return function()
                     button:Destroy()
                     buttonObj:Remove()
+                end
+            elseif index == "MouseButton1Click" then
+                return function(func)
+                    if buttonEvents["MouseButton1Click"] then
+                        buttonEvents["MouseButton1Click"]:Disconnect()
+                    end
+                    buttonEvents["MouseButton1Click"] = button.MouseButton1Click:Connect(func)
                 end
             end
             return buttonObj[index]
