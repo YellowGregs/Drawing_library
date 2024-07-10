@@ -114,7 +114,7 @@ function DrawingLib.createLine()
     lineFrame.BorderSizePixel = 0
 
     lineFrame.Parent = drawingUI
-    return setmetatable({}, {
+    return setmetatable({Parent = drawingUI}, {
         __newindex = function(_, index, value)
             if lineObj[index] == nil then 
                 warn("Invalid property: " .. tostring(index))
@@ -140,6 +140,8 @@ function DrawingLib.createLine()
                 lineFrame.BackgroundTransparency = convertTransparency(value)
             elseif index == "Color" then
                 lineFrame.BackgroundColor3 = value
+            elseif index == "Parent" then
+                lineFrame.Parent = value
             end
             lineObj[index] = value
         end,
@@ -188,7 +190,7 @@ function DrawingLib.createText()
 
     textLabel.Parent, uiStroke.Parent = drawingUI, textLabel
 
-    return setmetatable({}, {
+    return setmetatable({Parent = drawingUI}, {
         __newindex = function(_, index, value)
             if textObj[index] == nil then 
                 warn("Invalid property: " .. tostring(index))
@@ -219,6 +221,8 @@ function DrawingLib.createText()
                 uiStroke.Transparency = transparency
             elseif index == "Color" then
                 textLabel.TextColor3 = value
+            elseif index == "Parent" then
+                textLabel.Parent = value
             end
             textObj[index] = value
         end,
@@ -257,7 +261,7 @@ function DrawingLib.createCircle()
 
     circleFrame.Parent, uiCorner.Parent, uiStroke.Parent = drawingUI, circleFrame, circleFrame
 
-    return setmetatable({}, {
+    return setmetatable({Parent = drawingUI}, {
         __newindex = function(_, index, value)
             if circleObj[index] == nil then 
                 warn("Invalid property: " .. tostring(index))
@@ -285,6 +289,8 @@ function DrawingLib.createCircle()
             elseif index == "Color" then
                 circleFrame.BackgroundColor3 = value
                 uiStroke.Color = value
+            elseif index == "Parent" then
+                circleFrame.Parent = value
             end
             circleObj[index] = value
         end,
@@ -315,7 +321,7 @@ function DrawingLib.createSquare()
 
     squareFrame.Parent, uiStroke.Parent = drawingUI, squareFrame
 
-    return setmetatable({}, {
+    return setmetatable({Parent = drawingUI}, {
         __newindex = function(_, index, value)
             if squareObj[index] == nil then 
                 warn("Invalid property: " .. tostring(index))
@@ -342,6 +348,8 @@ function DrawingLib.createSquare()
             elseif index == "Color" then
                 squareFrame.BackgroundColor3 = value
                 uiStroke.Color = value
+            elseif index == "Parent" then
+                squareFrame.Parent = value
             end
             squareObj[index] = value
         end,
@@ -374,7 +382,7 @@ function DrawingLib.createImage()
 
     imageFrame.Parent = drawingUI
 
-    return setmetatable({}, {
+    return setmetatable({Parent = drawingUI}, {
         __newindex = function(_, index, value)
             if imageObj[index] == nil then 
                 warn("Invalid property: " .. tostring(index))
@@ -396,6 +404,8 @@ function DrawingLib.createImage()
                 imageFrame.ImageTransparency = convertTransparency(value)
             elseif index == "Color" then
                 imageFrame.ImageColor3 = value
+            elseif index == "Parent" then
+                imageFrame.Parent = value
             end
             imageObj[index] = value
         end,
@@ -441,7 +451,7 @@ function DrawingLib.createQuad()
 
     fillFrame.Parent = drawingUI
 
-    return setmetatable({}, {
+    return setmetatable({Parent = drawingUI}, {
         __newindex = function(_, index, value)
             if quadObj[index] == nil then 
                 warn("Invalid property: " .. tostring(index))
@@ -476,6 +486,8 @@ function DrawingLib.createQuad()
                     linePoint.Transparency = value and 1 or quadObj.Transparency
                 end
                 fillFrame.Visible = value
+            elseif index == "Parent" then
+                fillFrame.Parent = value
             end
             quadObj[index] = value
         end,
@@ -520,7 +532,7 @@ function DrawingLib.createTriangle()
 
     fillFrame.Parent = drawingUI
 
-    return setmetatable({}, {
+    return setmetatable({Parent = drawingUI}, {
         __newindex = function(_, index, value)
             if triangleObj[index] == nil then 
                 warn("Invalid property: " .. tostring(index))
@@ -552,6 +564,8 @@ function DrawingLib.createTriangle()
                     linePoint.Transparency = value and 1 or triangleObj.Transparency
                 end
                 fillFrame.Visible = value
+            elseif index == "Parent" then
+                fillFrame.Parent = value
             end
             triangleObj[index] = value
         end,
@@ -593,7 +607,7 @@ function DrawingLib.createFrame()
 
     frame.Parent = drawingUI
 
-    return setmetatable({}, {
+    return setmetatable({Parent = drawingUI}, {
         __newindex = function(_, index, value)
             if frameObj[index] == nil then
                 warn("Invalid property: " .. tostring(index))
@@ -612,6 +626,8 @@ function DrawingLib.createFrame()
                 frame.Visible = value
             elseif index == "ZIndex" then
                 frame.ZIndex = value
+            elseif index == "Parent" then
+                frame.Parent = value
             end
             frameObj[index] = value
         end,
@@ -647,7 +663,7 @@ function DrawingLib.createScreenGui()
 
     screenGui.Parent = coreGui
 
-    return setmetatable({}, {
+    return setmetatable({Parent = coreGui}, {
         __newindex = function(_, index, value)
             if screenGuiObj[index] == nil then
                 warn("Invalid property: " .. tostring(index))
@@ -664,6 +680,8 @@ function DrawingLib.createScreenGui()
                 screenGui.ZIndexBehavior = value
             elseif index == "Enabled" then
                 screenGui.Enabled = value
+            elseif index == "Parent" then
+                screenGui.Parent = value
             end
             screenGuiObj[index] = value
         end,
@@ -707,7 +725,7 @@ function DrawingLib.createTextButton()
 
     button.Parent = drawingUI
 
-    return setmetatable({}, {
+    return setmetatable({Parent = drawingUI}, {
         __newindex = function(_, index, value)
             if buttonObj[index] == nil then
                 warn("Invalid property: " .. tostring(index))
@@ -732,6 +750,8 @@ function DrawingLib.createTextButton()
                 button.Visible = value
             elseif index == "ZIndex" then
                 button.ZIndex = value
+            elseif index == "Parent" then
+                button.Parent = value
             end
             buttonObj[index] = value
         end,
@@ -775,7 +795,7 @@ function DrawingLib.createTextLabel()
 
     label.Parent = drawingUI
 
-    return setmetatable({}, {
+    return setmetatable({Parent = drawingUI}, {
         __newindex = function(_, index, value)
             if labelObj[index] == nil then
                 warn("Invalid property: " .. tostring(index))
@@ -800,6 +820,8 @@ function DrawingLib.createTextLabel()
                 label.Visible = value
             elseif index == "ZIndex" then
                 label.ZIndex = value
+            elseif index == "Parent" then
+                label.Parent = value
             end
             labelObj[index] = value
         end,
@@ -843,7 +865,7 @@ function DrawingLib.createTextBox()
 
     textBox.Parent = drawingUI
 
-    return setmetatable({}, {
+    return setmetatable({Parent = drawingUI}, {
         __newindex = function(_, index, value)
             if boxObj[index] == nil then
                 warn("Invalid property: " .. tostring(index))
@@ -868,6 +890,8 @@ function DrawingLib.createTextBox()
                 textBox.Visible = value
             elseif index == "ZIndex" then
                 textBox.ZIndex = value
+            elseif index == "Parent" then
+                textBox.Parent = value
             end
             boxObj[index] = value
         end,
