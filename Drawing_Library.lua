@@ -1,6 +1,5 @@
 local coreGui = game:GetService("CoreGui")
 
--- Initialize drawing UI
 local camera = workspace.CurrentCamera
 local drawingUI = Instance.new("ScreenGui")
 drawingUI.Name = "Drawing"
@@ -8,7 +7,6 @@ drawingUI.IgnoreGuiInset = true
 drawingUI.DisplayOrder = 0x7fffffff
 drawingUI.Parent = coreGui
 
--- Variables and enums
 local drawingIndex = 0
 local drawingFontsEnum = {
     [0] = Font.fromEnum(Enum.Font.Roboto),
@@ -17,7 +15,6 @@ local drawingFontsEnum = {
     [3] = Font.fromEnum(Enum.Font.RobotoMono)
 }
 
--- Helper functions
 local function getFontFromIndex(fontIndex)
     return drawingFontsEnum[fontIndex]
 end
@@ -26,7 +23,6 @@ local function convertTransparency(transparency)
     return math.clamp(1 - transparency, 0, 1)
 end
 
--- Base Drawing Object
 local baseDrawingObj = setmetatable({
     Visible = true,
     ZIndex = 0,
@@ -51,7 +47,6 @@ local baseDrawingObj = setmetatable({
     end
 })
 
--- Main Drawing Library
 local DrawingLib = {}
 DrawingLib.Fonts = {
     ["UI"] = 0,
@@ -60,7 +55,6 @@ DrawingLib.Fonts = {
     ["Monospace"] = 3
 }
 
--- Function to create a new drawing object
 function DrawingLib.new(drawingType)
     drawingIndex += 1
     if drawingType == "Line" then
@@ -80,7 +74,6 @@ function DrawingLib.new(drawingType)
     end
 end
 
--- Specific Drawing Object Creators
 function DrawingLib.createLine()
     local lineObj = ({
         From = Vector2.zero,
@@ -347,7 +340,6 @@ function DrawingLib.createImage()
             if imageObj[index] == nil then return end
 
             if index == "Data" then
-                -- Handle Data setting
             elseif index == "DataURL" then
                 imageFrame.Image = value
             elseif index == "Size" then
@@ -372,7 +364,7 @@ function DrawingLib.createImage()
                     imageObj:Remove()
                 end
             elseif index == "Data" then
-                return nil -- Handle Data getting
+                return nil
             end
             return imageObj[index]
         end,
@@ -418,7 +410,10 @@ function DrawingLib.createQuad()
                     linePoint[index] = value
                 end
             elseif index == "Filled" then
-                -- Handle filling
+                for _, linePoint in pairs(_linePoints) do
+                    linePoint.Transparency = value and 1 or quadObj.Transparency
+                end
+                -- im lazy 
             end
             quadObj[index] = value
         end,
@@ -470,7 +465,10 @@ function DrawingLib.createTriangle()
                     linePoint[index] = value
                 end
             elseif index == "Filled" then
-                -- Handle filling
+                for _, linePoint in pairs(_linePoints) do
+                    linePoint.Transparency = value and 1 or triangleObj.Transparency
+                end
+                --could add more but im lazy
             end
             triangleObj[index] = value
         end,
