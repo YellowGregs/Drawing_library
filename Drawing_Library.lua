@@ -708,7 +708,8 @@ function DrawingLib.createTextButton()
         BackgroundColor = Color3.new(0.2, 0.2, 0.2),
         Transparency = 0,
         Visible = true,
-        ZIndex = 1
+        ZIndex = 1,
+        MouseButton1Click = nil  -- Placeholder for event
     } + baseDrawingObj)
 
     local button = Instance.new("TextButton")
@@ -727,7 +728,19 @@ function DrawingLib.createTextButton()
 
     local buttonEvents = {}
 
-    return setmetatable({Parent = drawingUI, MouseButton1Click = function() end}, {
+    return setmetatable({
+        Parent = drawingUI,
+        Connect = function(_, eventName, callback)
+            if eventName == "MouseButton1Click" then
+                if buttonEvents["MouseButton1Click"] then
+                    buttonEvents["MouseButton1Click"]:Disconnect()
+                end
+                buttonEvents["MouseButton1Click"] = button.MouseButton1Click:Connect(callback)
+            else
+                warn("Invalid event: " .. tostring(eventName))
+            end
+        end
+    }, {
         __newindex = function(_, index, value)
             if buttonObj[index] == nil then
                 warn("Invalid property: " .. tostring(index))
@@ -771,13 +784,6 @@ function DrawingLib.createTextButton()
                 return function()
                     button:Destroy()
                     buttonObj:Remove()
-                end
-            elseif index == "MouseButton1Click" then
-                return function(func)
-                    if buttonEvents["MouseButton1Click"] then
-                        buttonEvents["MouseButton1Click"]:Disconnect()
-                    end
-                    buttonEvents["MouseButton1Click"] = button.MouseButton1Click:Connect(func)
                 end
             end
             return buttonObj[index]
