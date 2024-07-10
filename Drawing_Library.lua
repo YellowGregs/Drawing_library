@@ -725,6 +725,8 @@ function DrawingLib.createTextButton()
 
     button.Parent = drawingUI
 
+    local buttonEvents = {}
+
     return setmetatable({Parent = drawingUI}, {
         __newindex = function(_, index, value)
             if buttonObj[index] == nil then
@@ -752,6 +754,15 @@ function DrawingLib.createTextButton()
                 button.ZIndex = value
             elseif index == "Parent" then
                 button.Parent = value
+            elseif index == "MouseButton1Click" then
+                if typeof(value) == "function" then
+                    if buttonEvents["MouseButton1Click"] then
+                        buttonEvents["MouseButton1Click"]:Disconnect()
+                    end
+                    buttonEvents["MouseButton1Click"] = button.MouseButton1Click:Connect(value)
+                else
+                    warn("Invalid value for MouseButton1Click: expected function, got " .. typeof(value))
+                end
             end
             buttonObj[index] = value
         end,
